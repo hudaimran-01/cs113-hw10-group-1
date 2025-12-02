@@ -40,23 +40,27 @@ public class FiveInARow extends TurnBasedGame {
 				}
 			}
 		}
-		//diagonal down
-		for (int i = 0; i <= 10; i++) {
-			for (int j = 0; j <= 10; j++) {
-				if (gameboard[i][j] == marker && gameboard[i+1][j+1] == marker && gameboard[i+2][j+2] == marker && gameboard[i+3][j+3] == marker && gameboard[i+4][j+4] == marker) {
-					return true;
-				}
-			}
-		}
-		//diagonal up
-		for (int i = 0; i <= 10; i++) {
-			for (int j = 14; j >= 4; j--) {
-				if (board[i][j] == marker && board[i+1][j-1] == marker && board[i+2][j-2] && board[i+3][j-3] && board[i+4][j-4]) {
-					return true;
-				}
-			}
-		}
-		return false;
+		//diagonal
+
+      /* boolean flag0 = gameboard[0].equals(marker);
+      boolean flag1 = gameboard[1].equals(marker);
+      boolean flag2 = gameboard[2].equals(marker);
+      boolean flag3 = gameboard[3].equals(marker);
+      boolean flag4 = gameboard[4].equals(marker);
+      boolean flag5 = gameboard[5].equals(marker);
+      boolean flag6 = gameboard[6].equals(marker);
+      boolean flag7 = gameboard[7].equals(marker);
+      boolean flag8 = gameboard[8].equals(marker);
+
+      if((flag0 && flag1 && flag2) || (flag3 && flag4 && flag5) || (flag6 && flag7 && flag8) ||
+         (flag0 && flag3 && flag6) || (flag1 && flag4 && flag7) || (flag2 && flag5 && flag8) ||
+         (flag0 && flag4 && flag8) || (flag2 && flag4 && flag6)) {
+         return true;
+      }
+      else {
+         return false;
+      }
+		*/
    }
 
    private boolean gameboardIsFull() {
