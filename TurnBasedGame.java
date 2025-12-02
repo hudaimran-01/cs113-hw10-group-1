@@ -20,7 +20,7 @@ abstract public class TurnBasedGame extends TwoPlayerGame {
 		}
 	}
 
-	private void finishCurrentTurn() {
+	public void finishCurrentTurn() {
 		firstPlayerTurn = !firstPlayerTurn;
 	}
 
