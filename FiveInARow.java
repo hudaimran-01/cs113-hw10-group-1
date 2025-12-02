@@ -105,6 +105,15 @@ public class FiveInARow extends TurnBasedGame {
       }
    }
 
+	public boolean isNum(String input) {
+		for(int i = 0; i < input.length(); i++) {
+			if (!Character.isDigit(input.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
    protected void evaluateMove(String move) {
 		//edit for two inputs
 		//check string format
@@ -117,34 +126,41 @@ public class FiveInARow extends TurnBasedGame {
 			}
 			i++;
 		}
-
+		//wrong format
 		if (foundcomma == false) {
 			System.out.println("please input in format x,y");
 			System.out.println("* " + getCurrentPlayerName() + "'s Turn *");
          playOneTurn();
 			finishCurrentTurn();
-
 		} else {
 			//split string
 			String[] position = move.split(",");
-			int m = Integer.parseInt(position[0]);
-			int n = Integer.parseInt(position[1]);
-      	if(isFirstPlayerTurn()) {
-         	if(!isValidPosition(m,n)) {
-            	// throw new IllegalArgumentException("Player 1's move was invalid.");
-            	this.evaluateMove(player1.makeOneMove());
-         	} else {
-            	gameboard[m][n] = "1";
-         	}
-      	} else {
-			   if(!isValidPosition(m, n)) {
-			      //throw new IllegalArgumentException("Player 2's move was invalid.");
-					this.evaluateMove(player2.makeOneMove());
+			//not int
+			if (!isNum(position[0]) || !isNum(position[1])) {
+				System.out.println("please input integers in format x,y");
+				System.out.println("* " + getCurrentPlayerName() + "'s Turn *");
+				playOneTurn();
+				finishCurrentTurn();
+			} else {
+				int m = Integer.parseInt(position[0]);
+				int n = Integer.parseInt(position[1]);
+		   	if(isFirstPlayerTurn()) {
+		      	if(!isValidPosition(m,n)) {
+		         	// throw new IllegalArgumentException("Player 1's move was invalid.");
+		         	this.evaluateMove(player1.makeOneMove());
+		      	} else {
+		         	gameboard[m][n] = "1";
+		      	}
+		   	} else {
+				   if(!isValidPosition(m, n)) {
+				      //throw new IllegalArgumentException("Player 2's move was invalid.");
+						this.evaluateMove(player2.makeOneMove());
 
-			   } else {
-			      gameboard[m][n] = "0";
-			   }
-      	}
+				   } else {
+				      gameboard[m][n] = "0";
+				   }
+		   	}
+			}
 		}
    }
 
