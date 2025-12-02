@@ -3,11 +3,15 @@ public class FiveInARow extends TurnBasedGame {
    //extend board
 	//2d array
 	String[][] gameboard = new String [15][15];
-	for(int i = 0; i < gameboard.length; i++) {
-		for(int j = 0; j < gamebaord[0].length; j++) {
-			gameboard[i][j] = " ";
+
+	public void initialise() {
+		for (int i = 0; i < gameboard.length; i++) {
+			for (int j = 0; j < gameboard[0].length; j++) {
+				gameboard[i][j] = " ";
+			}
 		}
 	}
+
 
    public FiveInARow(Player player1, Player player2) {
       super(player1, player2);
@@ -51,7 +55,7 @@ public class FiveInARow extends TurnBasedGame {
 		//diagonal up
 		for (int i = 0; i <= 10; i++) {
 			for (int j = 14; j >= 4; j--) {
-				if (board[i][j] == marker && board[i+1][j-1] == marker && board[i+2][j-2] && board[i+3][j-3] && board[i+4][j-4]) {
+				if (gameboard[i][j] == marker && gameboard[i+1][j-1] == marker && gameboard[i+2][j-2] == marker && gameboard[i+3][j-3] == marker && gameboard[i+4][j-4] == marker) {
 					return true;
 				}
 			}
@@ -74,12 +78,18 @@ public class FiveInARow extends TurnBasedGame {
    private void printGameboard() {
 		//extend grid
 		//for loop
+		System.out.println("   |00|01|02|03|04|05|06|07|08|09|10|11|12|13|14|");
 		for (int j = 0; j < 15; j++) {
-			System.out.println("|");
-			for (int i = 0; i < 15; i ++) {
-				System.out.println(gameboard[i][j] + "|");
+			if (j >= 10) {
+				System.out.print(j + " |");
+			} else {
+				System.out.print("0" + j + " |");
 			}
-			System.out.println("------------------------------");
+			for (int i = 0; i < 15; i ++) {
+				System.out.print(gameboard[i][j] + " |");
+			}
+			System.out.println();
+			System.out.println("   ----------------------------------------------");
 		}
    }
 
@@ -110,31 +120,36 @@ public class FiveInARow extends TurnBasedGame {
 
 		if (foundcomma == false) {
 			System.out.println("please input in format x,y");
+			System.out.println("* " + getCurrentPlayerName() + "'s Turn *");
+         playOneTurn();
+			finishCurrentTurn();
+
 		} else {
 			//split string
 			String[] position = move.split(",");
-			int i = Integer.parseInt(position[0]);
-			int j = Integer.parseInt(position[1]);
+			int m = Integer.parseInt(position[0]);
+			int n = Integer.parseInt(position[1]);
       	if(isFirstPlayerTurn()) {
-         	if(!isValidPosition(i,j)) {
+         	if(!isValidPosition(m,n)) {
             	// throw new IllegalArgumentException("Player 1's move was invalid.");
             	this.evaluateMove(player1.makeOneMove());
          	} else {
-            	gameboard[i][j] = "1";
+            	gameboard[m][n] = "1";
          	}
       	} else {
-			   if(!isValidPosition(i, j)) {
+			   if(!isValidPosition(m, n)) {
 			      //throw new IllegalArgumentException("Player 2's move was invalid.");
 					this.evaluateMove(player2.makeOneMove());
 
 			   } else {
-			      gameboard[i][j] = "0";
+			      gameboard[m][n] = "0";
 			   }
       	}
 		}
    }
 
    public void play() {
+		initialise();
 		//same
       System.out.println("=== Game Started ===\n");
       System.out.println("Numbers 0 through 14 are valid inputs\n");

@@ -10,7 +10,7 @@ public class Main {
 		// For TicTacToe:
 		TextInputHumanPlayer player1 = new TextInputHumanPlayer("Bob");
 		TextInputHumanPlayer player2 = new TextInputHumanPlayer("Sally");
-		TicTacToe game = new TicTacToe(player1, player2);
+		FiveInARow game = new FiveInARow(player1, player2);
 		game.play();
 	}
 
